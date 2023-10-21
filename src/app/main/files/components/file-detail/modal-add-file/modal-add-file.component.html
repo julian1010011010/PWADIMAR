@@ -1,0 +1,176 @@
+<h1 mat-dialog-title class="header accent  p-24 h-60">
+    Cargar archivo
+</h1>
+<mat-dialog-content>
+    <div id="ngx-datatable" class="page-layout simple fullwidth docs">
+        <div fxLayout="row" fxLayoutAlign="start" fxFlex="100" class="p-8" fxLayout.xs="column">
+            <div fxFlex="100" class="message-box info">
+                {{'FILES.MESSAGE_NOTIFICATION' | translate}}
+            </div>
+        </div>
+        <div class="content p-8">
+            <form name="addFile" [formGroup]="loadFiles" novalidate class="p-24" fxLayout="column"
+                fxLayoutAlign="center" fxFlex="1 0 auto">
+                <input #file type="file" accept="application/pdf" hidden='true'
+                    (change)="loadFileInput($event.target.files)" />
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayout.xs="column">
+                    <mat-form-field appearance="outline" fxFlex="100" (click)="file.click()" class="pr-4">
+                        <mat-label>{{'FILES.LOAD_DOCUMENT' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="FileName" placeholder="Seleccionar archivo "
+                            readonly>
+                        <mat-icon matSuffix>attach_file</mat-icon>
+                        <mat-error *ngIf="loadFiles.get('FileName').hasError('required')">
+                            {{'FILES.ERROR_LOAD_DOCUMENT' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayout.xs="column">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4 widthConst"
+                        *ngIf='data.panel == "CertificatesGrid"'>
+                        <mat-label>{{'FILES.CLASS_DOCUMENT' | translate}}</mat-label>
+                        <mat-select [(value)]="selectedClassCertificateId" placeholder="Mode"
+                            formControlName="ClassDocument">
+                            <mat-option *ngFor="let list of classCertificate" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="loadFiles.get('ClassDocument').hasError('required')">
+                            {{'FILES.ERROR_CLASS_DOCUMENT' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4 widthConst"
+                        *ngIf='data.panel == "CertificatesGrid"'>
+                        <mat-label>{{'FILES.TYPE_CERTIFICATE' | translate}}</mat-label>
+                        <mat-select [(value)]="selectedCertificateTypeId" placeholder="Mode"
+                            formControlName="CertificateTypeId">
+                            <mat-option *ngFor="let list of certificateTypeId" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="loadFiles.get('CertificateTypeId').hasError('required')">
+                            {{'FILES.ERROR_TYPE_CERTIFICATE' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4 widthConst"
+                        *ngIf='data.panel == "LegalGrid"'>
+                        <mat-label>{{'FILES.TYPE_DOCUMENT' | translate}}</mat-label>
+                        <mat-select [(value)]="selectedLegalDocumentTypeId " placeholder="Mode"
+                            formControlName="LegalDocumentTypeId">
+                            <mat-option *ngFor="let list of legalDocumentTypeId " [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="loadFiles.get('LegalDocumentTypeId').hasError('required')">
+                            {{'FILES.ERROR_TYPE_DOCUMENT' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4 widthConst"
+                        *ngIf='data.panel == "EnrollmentGrid"'>
+                        <mat-label>{{'FILES.TYPE_DOCUMENT' | translate}}</mat-label>
+                        <mat-select [(value)]="selectedRegistrationDocumentTypeId" placeholder="Mode"
+                            formControlName="RegistrationDocumentTypeId">
+                            <mat-option *ngFor="let list of typeDocEnrollment" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="loadFiles.get('RegistrationDocumentTypeId').hasError('required')">
+                            {{'FILES.ERROR_TYPE_DOCUMENT' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4 widthConst"
+                        *ngIf='data.panel == "ModificationsGrid"'>
+                        <mat-label>{{'FILES.MODIFICATION_TYPE' | translate}}</mat-label>
+                        <mat-select [(value)]="selectedModificationDocumentTypeId" placeholder="Mode"
+                            formControlName="ModificationDocumentTypeId">
+                            <mat-option *ngFor="let list of modificationDocumentTypeId" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="loadFiles.get('ModificationDocumentTypeId').hasError('required')">
+                            {{'FILES.ERROR_MODIFICATION_TYPE' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4 widthConst"
+                        *ngIf='data.panel == "InspectionsGrid"'>
+                        <mat-label>{{'FILES.INSPECTION_TYPE' | translate}}</mat-label>
+                        <mat-select [(value)]="selectedInspectionTypeId" placeholder="Mode"
+                            formControlName="InspectionTypeId">
+                            <mat-option *ngFor="let list of inspectionTypeId" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="loadFiles.get('InspectionTypeId').hasError('required')">
+                            {{'FILES.ERROR_INSPECTION_TYPE' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4"
+                        *ngIf='data.panel != "ComunicationGrid" && data.panel != "CertificatesGrid"'>
+                        <mat-label>{{'FILES.EXPEDITION_DATE' | translate}}</mat-label>
+                        <input matInput type="date" formControlName="IssuanceDate" [max]="dateMax">
+                        <mat-error *ngIf="loadFiles.controls['IssuanceDate'].hasError('dateToCompareMaxNow')">
+                            {{'FILES.ERROR_EXPEDITION_DATE_MAX' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="loadFiles.get('IssuanceDate').hasError('required')">
+                            {{'FILES.ERROR_EXPEDITION_DATE' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="100" class="pr-4"
+                        *ngIf='data.panel == "ComunicationGrid"'>
+                        <mat-label>{{'FILES.DESCRIPTION' | translate}}</mat-label>
+                        <textarea matInput formControlName="Description" (input)="countString()"
+                            [attr.maxlength]="220"></textarea>
+                        <mat-hint><strong>{{count}} / 220</strong></mat-hint>
+                        <mat-error *ngIf="loadFiles.get('Description').hasError('required')">
+                            {{'FILES.ERROR_DESCRIPTION' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto"
+                    *ngIf='data.panel == "CertificatesGrid"' fxLayout.xs="column">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4 widthConst">
+                        <mat-label>{{'FILES.GENERATION_TYPE' | translate}}</mat-label>
+                        <mat-select [(value)]="selectedCertificateGenerationTypeId" placeholder="Mode"
+                            formControlName="CertificateGenerationTypeId">
+                            <mat-option *ngFor="let list of certificateGenerationTypeId" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.EXPEDITION_DATE' | translate}}</mat-label>
+                        <input matInput type="date" formControlName="IssuanceDate" [max]="dateMax">
+                        <mat-error *ngIf="loadFiles.controls['IssuanceDate'].hasError('dateToCompareMaxNow')">
+                            {{'FILES.ERROR_EXPEDITION_DATE_MAX' | translate}}
+                        </mat-error>
+                        <mat-error *ngIf="loadFiles.get('IssuanceDate').hasError('required')">
+                            {{'FILES.ERROR_EXPEDITION_DATE' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto"
+                    *ngIf='data.panel == "CertificatesGrid"' fxLayout.xs="column">
+                    <mat-form appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-checkbox (click)="applyDateExpired()">
+                            {{'FILES.APPLY_EXPIRATION_DATE' | translate}}
+                        </mat-checkbox>
+                    </mat-form>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.EXPIRATION_DATE' | translate}}</mat-label>
+                        <input matInput type="date" formControlName="ExpirationDate" [required]="checkDateExpired">
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="1 0 auto" fxLayout.xs="column">
+        <mat-form fxFlex="50" class="ml-8" fxLayoutAlign="center" class="pr-4">
+            <button mat-raised-button color="accent" [disabled]="loadFiles.invalid"
+                (click)="loadFile()">Aceptar</button>
+        </mat-form>
+        <mat-form fxFlex="50" fxLayoutAlign="center" class="pr-4">
+            <button mat-raised-button class="red" (click)="onNoClick()">Cancelar</button>
+        </mat-form>
+    </div>
+</mat-dialog-actions>

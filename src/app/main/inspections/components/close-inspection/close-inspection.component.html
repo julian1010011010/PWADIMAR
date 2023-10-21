@@ -1,0 +1,79 @@
+<div id="close-inspection" class="page-layout simple fullwidth p-24">
+    <div class="mat-card p-0">
+        <div class="card-header">
+            <h1>{{ data.title }}</h1>
+        </div>
+        <div class="content">
+            <app-deficiencies
+                [(inspection)]="inspection"
+                [(errorMsg)]="errorMsg"
+                [showSubtitle]="data.showSubtitle"
+                [finalState]="finalState"
+                *ngIf="data.showDeficiencies"
+            ></app-deficiencies>
+            <app-conclusions
+                [(inspection)]="inspection"
+                [(errorMsg)]="errorMsg"
+                [(savingData)]="savingData"
+                [(isSaveActive)]="isSaveActive"
+                [(showSave)]="showSave"
+                [(successSave)]="successSave"
+                [showSubtitle]="data.showSubtitle"
+                [(finalState)]="finalState"
+                (savedProcess)="loadSurvey($event)"
+                *ngIf="data.showConclusions"
+            ></app-conclusions>
+            <app-photographic-annex
+                [(inspection)]="inspection"
+                [(errorMsg)]="errorMsg"
+                [showSubtitle]="data.showSubtitle"
+                [finalState]="finalState"
+                *ngIf="data.showAttachments"
+            ></app-photographic-annex>
+            <app-certificates
+                [(inspection)]="inspection"
+                [(errorMsg)]="errorMsg"
+                [finalState]="finalState"
+            ></app-certificates>
+            <!--<app-breaches
+                [(inspection)]="inspection"
+                [(errorMsg)]="errorMsg"
+                [showSubtitle]="data.showSubtitle"
+                [finalState]="finalState"
+                *ngIf="data.showBreaches"
+            ></app-breaches>-->
+
+            <div fxLayoutAlign="end center">
+                <survey-control *ngIf="downloadPDF" style="width: 50px; margin-top: -30px; overflow: hidden;" spinnerDiameter="35" surveyHeight="0px" renderSurveyComponent="N" 
+                surveyComponentId="allSections" [title]="pdfTitle" [subTitle]="subTitle" [code]="code" [version]="version" [process]="process" [logo]='logo' 
+                [note]="note" [resolution] ="resolution"></survey-control>
+                <div class="success-message" *ngIf="successSave && !savePressed">
+                    {{ "SHARED.DATA_SAVED" | translate }}
+                </div>
+                <div class="error-message" *ngIf="errorMsg">{{ errorMsg }}</div>
+                <div *ngIf="savingData" class="pr-12">
+                    <mat-spinner diameter="35"></mat-spinner>
+                </div>
+                <button
+                    class="mr-12"
+                    mat-raised-button
+                    color="accent"
+                    (click)="save()"
+                    [disabled]="!isSaveActive"
+                    *ngIf="showSave && !savingData && !finalState"
+                >
+                    {{ saveBtnText }}
+                </button>
+                <button
+                    mat-raised-button
+                    color="accent"
+                    class="red"
+                    (click)="goBack()"
+                >
+                    {{ "SHARED.BACK" | translate }}
+                </button>
+            </div>
+        </div>        
+    </div>
+</div>
+

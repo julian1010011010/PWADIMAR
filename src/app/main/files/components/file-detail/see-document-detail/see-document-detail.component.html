@@ -1,0 +1,21 @@
+<div id="consult" class="page-layout simple fullwidth">
+    <div class="content p-24">
+        <div class="card-header">
+            <h1> {{'FILES.SEE_DOCUMENT_DETAIL' | translate}} {{'FILES.OF_DOCUMENT' | translate}}</h1>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-evenly none" *ngIf="currentPdf">
+            <ngx-extended-pdf-viewer [base64Src]="currentPdf" [useBrowserLocale]="true" [delayFirstView]="1000"
+                height="80vh" [showOpenFileButton]="false" [showBookmarkButton]="false" [showScrollingButton]="false" [showSpreadButton]="false" [showPropertiesButton]="false"></ngx-extended-pdf-viewer>
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+        <mat-form fxFlex="90" fxLayoutAlign="end" class="pr-4 pb-8">
+            <button mat-raised-button color="accent" class="submit-button" (click)="detailDocument()">
+                {{ 'FILES.DOWNLOAD' | translate}} </button>
+        </mat-form>
+        <mat-form fxFlex="10" fxLayoutAlign="center" class="pr-24 pb-8">
+            <button mat-raised-button color="accent" class="submit-button"
+                routerLink="/expedientes/detalle/{{registrationNumbers}}"> {{ 'FILES.RETURN' | translate}} </button>
+        </mat-form>
+    </div>
+</div>

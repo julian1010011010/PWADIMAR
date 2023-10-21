@@ -1,0 +1,55 @@
+<div class="report-control">
+    <div class="mat-card p-0">
+        <div class="card-header">
+            <h1>{{ tittleReport }}</h1>
+        </div>
+        <div fxLayout="column" class="report-control p-24">
+            <mat-form-field appearance="outline">
+                <mat-label>{{ 'REPORT.REPORTS' | translate}}</mat-label>
+                <mat-select class="simplified" [(value)]="reportId" (selectionChange)="loadReport()">
+                    <mat-option [value]="option.name" *ngFor="let option of reports">{{ option.title }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div *ngIf="reportId !== null && reportId !== ''">
+        <div class="mat-card p-0 mt-24">
+            <div class="card-header">
+              <h1>{{ 'REPORT.PARAMS' | translate}}</h1>
+            </div>
+            <div fxLayout="column" class="report-control">
+                <survey-control style="width: 100%;" setReadOnlyAfterComplete="N" [surveyComponentId]="reportId" [submitBtnText]="submitText" (submitSurvey)="generateReport($event)"></survey-control>                
+            </div>
+        </div>
+        <div class="mat-card p-0 mt-24">
+            <div class="card-header">
+              <h1>{{ 'REPORT.RESULTS' | translate}}</h1>
+            </div>
+            <div class="grid-container">
+                <table #dataTable class="table table-striped table-bordered table-sm row-border hover" style="width:100%; margin-top: 20px;">
+                </table>
+            </div>
+        </div>
+        <div class="mat-card p-0 mt-24" *ngIf="resultReport">
+            <div class="card-header">
+              <h1>{{ 'REPORT.CHARTS' | translate}}</h1>
+            </div>
+            <div class="chart-container">
+                <mat-form-field appearance="outline" style="width: 300px !important; margin-right: 25px !important;">
+                    <mat-label>{{ 'REPORT.TYPE' | translate}}</mat-label>
+                    <mat-select class="simplified" [(value)]="selectedChartTypes">
+                        <mat-option [value]="option.id" *ngFor="let option of charttypes">{{ option.description }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 300px !important; margin-right: 25px !important;">
+                    <mat-label>{{ 'REPORT.COLUMN' | translate}}</mat-label>
+                    <mat-select class="simplified" [(value)]="selectedColumn">
+                        <mat-option [value]="option.id" *ngFor="let option of columns">{{ option.description }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-raised-button color="accent" (click)="updateChart()">{{ 'REPORT.SUBMITCHART' | translate}}</button>
+                <div id="chart-container" style="height: 0px;"></div>
+            </div>
+        </div>
+    </div>    
+</div>

@@ -1,0 +1,25 @@
+<h1 mat-dialog-title class="header accent  p-24 h-60">
+    {{'FILES.SISTEM_MESSAGE' | translate}}
+</h1>
+<mat-dialog-content>
+<div id="consult" class="page-layout simple fullwidth">
+    <div class="content p-24">
+        <div fxLayout="column" fxLayoutAlign="space-evenly center">
+            {{'FILES.YOU_ARE_SURE' | translate}}
+        </div>
+    </div>
+</div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="1 0 auto">
+        <mat-form fxFlex="50" class="ml-8" fxLayoutAlign="center" class="pr-4" *ngIf="!isLoading">
+            <button mat-raised-button color="accent" (click)="onSiClick()">{{'FILES.YES' | translate}}</button>
+        </mat-form>
+        <mat-form fxFlex="50" fxLayoutAlign="center" class="pr-4" *ngIf="!isLoading">
+            <button mat-raised-button class="red" (click)="onNoClick()">{{'FILES.NOT' | translate}}</button>
+        </mat-form>
+        <mat-form fxFlex="100" class="ml-8" fxLayoutAlign="center center">
+            <mat-spinner diameter="35" *ngIf="isLoading"></mat-spinner>
+        </mat-form>
+    </div>
+</mat-dialog-actions>

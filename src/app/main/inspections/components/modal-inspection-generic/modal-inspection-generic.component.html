@@ -1,0 +1,61 @@
+<h1 mat-dialog-title class="accent">{{ data.title }}</h1>
+<mat-dialog-content>
+    <app-deficiencies
+        [(inspection)]="inspection"
+        [(errorMsg)]="errorMsg"
+        [showSubtitle]="data.showSubtitle"
+        [finalState]="finalState"
+        *ngIf="data.showDeficiencies"
+    ></app-deficiencies>
+    <app-conclusions
+        [(inspection)]="inspection"
+        [(errorMsg)]="errorMsg"
+        [(savingData)]="savingData"
+        [(isSaveActive)]="isSaveActive"
+        [(showSave)]="showSave"
+        [(successSave)]="successSave"
+        [showSubtitle]="data.showSubtitle"
+        [(finalState)]="finalState"
+        *ngIf="data.showConclusions"
+    ></app-conclusions>
+    <app-photographic-annex
+        [(inspection)]="inspection"
+        [(errorMsg)]="errorMsg"
+        [showSubtitle]="data.showSubtitle"
+        [finalState]="finalState"
+        *ngIf="data.showAttachments"
+    ></app-photographic-annex>
+    <!--<app-breaches
+        [(inspection)]="inspection"
+        [(errorMsg)]="errorMsg"
+        [showSubtitle]="data.showSubtitle"
+        [finalState]="finalState"
+        *ngIf="data.showBreaches"
+    ></app-breaches>-->
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <div class="success-message" *ngIf="successSave">
+        {{ "SHARED.DATA_SAVED" | translate }}
+    </div>
+    <div class="error-message" *ngIf="errorMsg">{{ errorMsg }}</div>
+    <div *ngIf="savingData" class="pr-12">
+        <mat-spinner diameter="35"></mat-spinner>
+    </div>
+    <button
+        mat-raised-button
+        color="accent"
+        (click)="save()"
+        [disabled]="!isSaveActive"
+        *ngIf="showSave && !savingData && !finalState"
+    >
+        {{ saveBtnText }}
+    </button>
+    <button
+        mat-raised-button
+        color="accent"
+        class="red"
+        (click)="closeDialog()"
+    >
+        {{ "SHARED.CLOSE" | translate }}
+    </button>
+</mat-dialog-actions>

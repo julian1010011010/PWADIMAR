@@ -1,0 +1,76 @@
+<div id="inspection-formats">
+  <!-- To upload file for the ship -->
+  <input #file type="file" hidden='true' accept="image/png, image/jpeg" (change)="loadFileInput($event)" />
+  <div class="header">
+    <div class="title">
+      {{ 'INSPECTION_FORMATS.TITLE' | translate}}
+    </div>
+    <div class="subtitle">
+      {{ inspectionData.inspectionTypeDescription }}
+    </div>
+    <div class="description">
+      <h5 class="text">
+        {{ 'INSPECTION_FORMATS.DESCRIPTION' | translate}}
+      </h5>
+    </div>   
+    <div class="actions" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center">
+      <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center" *ngIf="inspection.sections">
+        <button mat-raised-button color="accent" class="mr-4" (click)="file.click()" *ngIf="!uploadingFile">
+          {{ 'INSPECTION_FORMATS.PHOTO' | translate}}
+        </button>
+        <div class="pr-12" *ngIf="uploadingFile">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>        
+        <button mat-raised-button color="accent" class="mr-4" (click)="openDialog('all')" *ngIf="finalState && inspection.inspection.showSummary">
+          {{ 'INSPECTION_FORMATS.SHOW' | translate}}
+        </button>
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center" *ngIf="!finalState && !inspection.inspection.isSpecialType"> 
+          <button mat-raised-button color="accent" class="mr-4" (click)="openDialog('conclusions')">{{ 'INSPECTION_FORMATS.CONCLUSIONS' | translate}}</button>
+          <!--<button mat-raised-button color="accent" class="mr-4" (click)="openDialog('breaches')">{{ 'INSPECTION_FORMATS.BREACHES' | translate}}</button>-->
+          <button mat-raised-button color="accent" class="mr-4" (click)="openDialog('deficiencies')">{{ 'INSPECTION_FORMATS.DEFICIENCIES' | translate}}</button>
+          <button mat-raised-button color="accent" (click)="openDialog('attachments')">{{ 'INSPECTION_FORMATS.ATTACHMENTS' | translate}}</button>
+        </div>
+      </div>
+    </div> 
+  </div>
+
+  <div class="mat-card p-0">
+    <div class="accent sections-title">
+      <h2>{{ 'INSPECTION_FORMATS.FORM' | translate}}</h2>   
+    </div>
+    <div *ngIf="!inspection.sections" class="load-spinner">
+      <mat-spinner diameter="70"></mat-spinner>
+    </div>
+    <mat-accordion *ngIf="inspection.sections">
+      <mat-expansion-panel *ngFor="let section of inspection.sections" (opened)="loadSurvey(section)"
+      (closed)="section.panelOpenState = false" class="section" [ngClass]="{'section-opened': section.panelOpenState}">
+        <mat-expansion-panel-header>
+          {{section.description}}
+          <mat-icon *ngIf="!section.pending" class="done-check">check</mat-icon>
+        </mat-expansion-panel-header>
+        <div *ngIf="section.panelOpenState" class="content">
+          <div *ngIf="section.loadingSurvey" class="load-spinner">
+            <mat-spinner diameter="45"></mat-spinner>
+          </div>
+          <div *ngIf="!section.loadingSurvey">
+            <survey-control style="width: 100%;" [surveyComponentId]="section.name" [json]="section.survey" [dataJson]="section.answers" [mode]="section.mode" 
+              [submitBtnText]="surveySaveBtn" setReadOnlyAfterComplete="N" (submitSurvey)="completeData($event, section)"></survey-control>
+          </div>
+        </div>      
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="footer" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end center" *ngIf="!finalState && inspection.pendingSections === 0">
+      <survey-control #surveyPdf *ngIf="downloadPDF" style="width: 50px; margin-top: -30px; overflow: hidden;" spinnerDiameter="35" surveyHeight="0px" renderSurveyComponent="N" 
+        surveyComponentId="allSections" [title]="pdfTitle" [subTitle]="subTitle" [code]="code" [version]="version" [process]="process" [logo]='logo' 
+        [note]="note" [resolution] ="resolution"></survey-control>
+      <div class="success-message" *ngIf="closedSuccessfully">
+          {{ "SHARED.DATA_SAVED" | translate }}
+      </div>
+      <div class="error-message" *ngIf="errorMsg">{{ errorMsg }}</div>
+      <button mat-raised-button color="accent" class="mr-4" (click)="openDialog('all')">
+        {{ 'INSPECTION_FORMATS.FINALIZE' | translate}}
+      </button>
+    </div>
+  </div>
+</div>
+

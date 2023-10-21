@@ -1,0 +1,67 @@
+#inspection-formats {
+    width: 100%;
+    padding: 40px;
+
+    .header {
+        text-align: center;
+
+        .title {
+            font-size: 1.7em;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+        }
+                
+        .description {
+            display: flex;
+            justify-content: center;
+
+            .text {
+                width: 70%;
+            }
+        }
+
+        .actions {
+            padding-bottom: 12px;
+
+            .inspection-type {
+                text-align: left;
+            }
+        }
+    }
+
+    .sections-title {
+        text-align: left;
+        padding: 1px 24px;
+    }
+
+    .load-spinner {
+        display: flex;
+        justify-content: center;
+        padding: 24px 0;
+    }
+
+    .section-opened {
+        border-radius: 0;
+
+        .mat-expansion-panel-header {
+            border-radius: 0;
+            background: #d5d8dc;
+        }
+    }
+
+    .done-check {
+        color: #2ecc71;
+        margin-left: 12px;
+        margin-top: -3px;
+    }
+
+    .footer{
+        padding: 12px;
+        position: sticky;
+        bottom: 0;
+        border-radius: 0 0 3px 3px;
+        background: #d5d8dc;
+    }
+}

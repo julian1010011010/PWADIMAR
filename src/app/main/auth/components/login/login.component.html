@@ -1,0 +1,62 @@
+<div id="login" fxLayout="column">
+    <!-- Toolbar Container -->
+    <div fxLayout="row" fxLayoutAlign="center center" class="toolbar-container">
+        <a href="https://www.dimar.mil.co/" target="_blank" class="logo-margin">
+            <img src="https://www.dimar.mil.co/sites/default/files/images/v2-02.png"/>
+        </a>
+        <a href="https://www.mindefensa.gov.co/irj/portal/Mindefensa" target="_blank" class="logo-margin ">
+            <img src="https://www.dimar.mil.co/sites/default/files/images/v2-03_0.png"/>
+        </a>
+        <a href="https://id.presidencia.gov.co/Paginas/presidencia.aspx" target="_blank"  >
+            <img src="https://www.dimar.mil.co/sites/default/files/images/v2-04_0.png"/>
+        </a>
+    </div>
+    
+    <!-- Login Form Wrapper -->
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center" class="login-form-container">
+        <div id="login-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+            <div class="logo">
+                <img src="assets/images/logos/Logo_iconos-01.png">
+            </div>
+            <div class="title">{{ 'LOGIN.TITLE' | translate }}</div>
+            <form [formGroup]="loginForm" autocomplete="off">
+                <!-- Username -->
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ 'LOGIN.USERNAME' | translate }}</mat-label>
+                    <input matInput formControlName="username" autocomplete="off">
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-error *ngIf="loginForm.get('username').hasError('required')">
+                        {{ 'LOGIN.ERRORS.USERNAME_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+                
+                <!-- Password -->
+                <mat-form-field appearance="outline">
+                    <mat-label>{{ 'LOGIN.PASSWORD' | translate }}</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    <mat-error>
+                        {{ 'LOGIN.ERRORS.PASSWORD_REQUIRED' | translate }}
+                    </mat-error>
+                </mat-form-field>
+                
+                <!-- Loading Spinner -->
+                <div *ngIf="loading" class="load-spinner">
+                    <mat-spinner diameter="45"></mat-spinner>
+                </div>
+                
+                <!-- Submit Button -->
+                <button 
+                style="cursor: pointer; background-color: rgba(255, 255, 255, 0.1) !important; "  
+                    mat-raised-button 
+                    color="accent" 
+                    *ngIf="!loading" 
+                    class="submit-button outlined-button"  
+                    [disabled]="loginForm.invalid" 
+                    (click)="doLogin()">
+                    {{ 'LOGIN.SUBMIT' | translate }}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

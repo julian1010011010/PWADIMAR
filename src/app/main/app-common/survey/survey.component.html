@@ -1,0 +1,4 @@
+<div *ngIf="renderingSurvey" class="load-spinner">
+    <mat-spinner [diameter]="spinnerDiameter"></mat-spinner>
+</div>
+<div style="width: 100%;" [ngStyle]="{'height': surveyHeight}" id="{{surveyComponentId}}"></div>

@@ -1,0 +1,73 @@
+<mat-toolbar class="p-0 mat-elevation-z1">
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="space-between center">
+      
+      <!-- Primer bloque de contenido (Izquierda) -->
+      <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="start center" class="separated">
+        <div
+          class="navbar-toggle-button"
+          *ngIf="!hiddenNavbar && !rightNavbar"
+          (click)="toggleSidebarOpen('navbar')"
+          fxHide.gt-md
+        >
+          <img
+            class="logo-icon"
+            src="assets/images/logos/Logo_iconos-01.png"
+          />
+        </div>
+  
+        <div
+          class="toolbar-separator"
+          *ngIf="!hiddenNavbar && !rightNavbar"
+          fxHide.gt-md
+        ></div>
+  
+        <div
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          *ngIf="horizontalNavbar"
+        >
+          <div class="logo ml-16">
+            <img class="logo-icon" src="assets/images/logos/fuse.svg" />
+          </div>
+        </div>
+      </div>
+      
+      
+      <!-- Segundo bloque de contenido (Central) -->
+      <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="center center" class="logos-container">
+        <a href="https://www.dimar.mil.co/" target="blank" class="logo-margin">
+          <img src="https://www.dimar.mil.co/sites/default/files/images/v2-02.png" />
+        </a>
+        <a href="https://www.mindefensa.gov.co/irj/portal/Mindefensa" target="blank" class="logo-margin">
+          <img src="https://www.dimar.mil.co/sites/default/files/images/v2-03_0.png" />
+        </a>
+        <a href="https://id.presidencia.gov.co/Paginas/presidencia.aspx" target="blank">
+          <img src="https://www.dimar.mil.co/sites/default/files/images/v2-04_0.png" />
+        </a>
+      </div>
+      
+      <!-- Tercer bloque de contenido (Derecha) -->
+      <div fxFlex="1 1 auto" fxLayout="row" fxLayoutAlign="end center">
+        <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <img class="avatar mr-0 mr-sm-16" src="assets/images/avatars/profile.png" />
+            <span class="username mr-12" fxHide fxShow.gt-sm>
+              {{ authService.authData.username }}
+              <br />
+              {{ authService.authData.roles }}
+            </span>
+            <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+          </div>
+        </button>
+  
+        <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+          <button mat-menu-item (click)="authService.doLogout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+  
+    </div>
+  </mat-toolbar>
+  

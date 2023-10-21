@@ -1,0 +1,52 @@
+#file-detail {
+  #silverfox {
+    /* Asignamos una altura mínima */
+    min-height: 400px;
+    background-size: cover;
+    background-position: center;
+  }
+  .space{
+    margin: .25em .25em !important;
+  }
+}
+
+@media print{
+  .doNotPrint{
+    display:none !important;
+  }
+}
+.load-spinner {
+  margin:0 auto;
+}
+
+::ng-deep .mat-tab-label {
+  opacity: .9 !important;
+}
+::ng-deep .mat-tab-label-active  {
+  background: lightgray !important;
+  }
+
+::ng-deep .tab-blue .mat-tab-label-active {
+    background:#2f376d !important;
+}
+  
+::ng-deep .tab-blue .mat-tab-label-active .mat-tab-label-content {
+    color: white;
+}
+
+::ng-deep .tab-documentos .mat-tab-label-active{
+background: lightgray !important;
+}
+
+::ng-deep .tab-documentos .mat-tab-label-active .mat-tab-label-content {
+  color: black;
+}
+
+mat-form-field .mat-form-field-outline {
+    display: block !important;
+}
+
+mat-form-field .mat-form-field-outline-thick {
+    opacity: 1 !important;
+}
+ 

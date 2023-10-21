@@ -1,0 +1,34 @@
+<form [formGroup]="inspectionForm">
+    <div class="col s12">
+        <div class="mensaje-ayuda">
+            <button mat-icon-button (click)="verMensaje = false" class="text-info--close">
+            </button>
+            Bienvenida/o aquí podrá realizar la creación del nuevo formulario de inspección
+        </div>
+        <div class="text-center" style="margin-left: 20%;">
+            <button mat-raised-button color="accent" (click)="showtable()" class="center-button">
+                {{'FILES.CREATE_FORM'| translate}}
+            </button>
+        </div>
+        <div class="text-center mt-4">
+            <mat-card class="card-container" *ngIf="seetable">
+                <ngx-datatable class="material centered-table" >
+                    <ngx-datatable-column name="Nombre formulario" prop="nameForm">Columna 1</ngx-datatable-column>
+                    <ngx-datatable-column name="Subcategoria nave" prop="shipSubcategory">Columna 2</ngx-datatable-column>
+                    <ngx-datatable-column name="Fecha" prop="date">Columna 3</ngx-datatable-column>
+                    <ngx-datatable-column name="Estado" prop="state">Columna 4</ngx-datatable-column>
+                    <ngx-datatable-column name="Gestión" prop="management">Columna 5</ngx-datatable-column>
+                </ngx-datatable>
+            </mat-card>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+

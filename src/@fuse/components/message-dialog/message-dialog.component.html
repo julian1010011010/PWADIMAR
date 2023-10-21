@@ -1,0 +1,19 @@
+<h1 mat-dialog-title class="header accent  p-24 h-60">
+    {{data.title}}
+</h1>
+<mat-dialog-content> 
+    <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+        <div class="alingText">
+            <mat-icon *ngIf="data.type && data.type === 'success'" role="img" class="mat-icon material-icons mat-icon-no-color" style="color:#2f376d;">check_circle</mat-icon>
+            <mat-icon *ngIf="data.type && data.type === 'error'" role="img" class="mat-icon material-icons mat-icon-no-color" style="color: red;">error</mat-icon>
+            <mat-icon *ngIf="data.type && data.type === 'warning'" role="img" class="mat-icon material-icons mat-icon-no-color" style="color:goldenrod;">warning</mat-icon>
+            <p [innerHTML]="data.message"></p>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="pt-24">
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="1 0 auto" >
+        <button mat-raised-button color="accent" (click)="dialogRef.close(true)">{{data.buttonText}}</button>
+        <button mat-raised-button class="red" (click)="dialogRef.close(false)" *ngIf="data.buttonCancelText">{{data.buttonCancelText}}</button>
+    </div>
+</mat-dialog-actions>

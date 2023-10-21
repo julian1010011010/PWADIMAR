@@ -1,0 +1,137 @@
+<form [formGroup]="formConsult">
+    <div class="form-fields-container" style="margin: 2%;">
+
+        <mat-form-field>
+            <mat-label>Tomo</mat-label>
+            <mat-select formControlName="numeroTomo" multiple (selectionChange)="filterTable()">
+                <mat-option *ngFor="let tomo of tomoList" [value]="tomo">{{tomo}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label> Tipo documento </mat-label>
+            <mat-select formControlName="tipoDocumental" multiple (selectionChange)="filterTable()">
+                <mat-option *ngFor="let type of typeDocument" [value]="type">{{type}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field>
+            <mat-label> Número de radicado-expediente </mat-label>
+            <mat-select formControlName="numeroRadicadoExpediente" multiple (selectionChange)="filterTable()">
+                <mat-option *ngFor="let number of numberExpediente" [value]="number"> {{number}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+        <mat-card style="box-shadow: none; background: none; width: 25%;">
+            <mat-card-content>
+                <div style="display: flex; margin-bottom: 16px;">
+                    <span style="margin-right: 8px; align-self: center;">Desde:</span>
+                    <mat-form-field  style="flex: 1; margin-right: 16px;">
+                        <mat-label>Fecha expedicion</mat-label>
+                        <input matInput 
+                            [matDatepicker]="picker1" 
+                            (focus)="picker1.open()"  
+                            class="center-text" 
+                            formControlName="fechaExpedicionDesde" 
+                            readonly 
+                            (dateChange)="filterTable()">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+    
+                    <span style="margin-right: 8px; align-self: center;">Desde:</span>
+                    <mat-form-field  style="flex: 1;">
+                        <mat-label>Fecha vigencia</mat-label>
+                        <input matInput 
+                            [matDatepicker]="picker2" 
+                            (focus)="picker2.open()"  
+                            class="center-text" 
+                            formControlName="fechaVigenciaDesde" 
+                            readonly
+                            (dateChange)="filterTable()">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+    
+                <div style="display: flex;">
+                    <span style="margin-right: 8px; align-self: center;">Hasta:</span>
+                    <mat-form-field  style="flex: 1; margin-right: 16px;">
+                        <input matInput [matDatepicker]="picker3" 
+                            (focus)="picker3.open()"  
+                            class="center-text" 
+                            formControlName="fechaExpedicionHasta" 
+                            readonly 
+                            (dateChange)="filterTable()">
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
+                    </mat-form-field>
+    
+                    <span style="margin-right: 8px; align-self: center;">Hasta:</span>
+                    <mat-form-field  style="flex: 1;">
+                        <input matInput 
+                            [matDatepicker]="picker4" 
+                            (focus)="picker4.open()"  
+                            class="center-text" 
+                            formControlName="fechaVigenciaHasta" 
+                            readonly
+                            (dateChange)="filterTable()">
+                        <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                        <mat-datepicker #picker4></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </mat-card-content> 
+        </mat-card>
+    </div>
+
+    <div class="busqueda">
+        <mat-form-field appearance="outline" class="busqueda--input">
+            <mat-label>Buscador / Filtro </mat-label>
+            <input matInput #filtro (keyup)="applyFilter($event)">
+        </mat-form-field>
+    </div>
+</form>
+
+<ngx-datatable 
+class="material"   
+[rows]="rows" 
+[columnMode]="'flex'" 
+[headerHeight]="'auto'"  
+[footerHeight]="'auto'"  
+[rowHeight]="'auto'" 
+[limit]="5"
+>
+    <ngx-datatable-column name="Tomo" prop="numeroTomo" [flexGrow]="1" [resizeable]="true"></ngx-datatable-column>
+    <ngx-datatable-column name="Tipo documental" prop="tipoDocumental"[flexGrow]="1" [resizeable]="true"></ngx-datatable-column>
+    <ngx-datatable-column name="Número de radicado-expediente" prop="numeroRadicadoExpediente" [flexGrow]="1" [resizeable]="true">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{ value ? (value | date: 'dd/MM/yyyy') : 'NO REGISTRA' }}
+        </ng-template>
+    </ngx-datatable-column>
+    
+
+    <ngx-datatable-column name="Fecha expedicion" prop="fechaExpedicion" [flexGrow]="1" [resizeable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value ? (value | date: 'dd/MM/yyyy') : 'NO REGISTRA' }}
+        </ng-template>
+    </ngx-datatable-column> 
+
+    <ngx-datatable-column name="Fecha vigencia" prop="fechaVigencia" [flexGrow]="1" [resizeable]="true">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+            {{ value ? (value | date: 'dd/MM/yyyy') : 'NO REGISTRA' }}
+        </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Gestion" [flexGrow]="2">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; width: 100%;">
+                    <button mat-raised-button color="accent" class="submit-button fixed-width-button" (click)="downloadDocument(row)">Descargar Documento</button> 
+                    <button mat-raised-button color="accent" class="submit-button fixed-width-button" (click)="downloadTomo(row)">Descargar Tomo</button>
+                    <button mat-raised-button color="accent" class="submit-button fixed-width-button"(click)="visualizar(row)">Visualizar</button>
+                </div>
+            </div>
+        </ng-template>
+    </ngx-datatable-column>
+    
+</ngx-datatable>

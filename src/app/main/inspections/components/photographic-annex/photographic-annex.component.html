@@ -1,0 +1,64 @@
+<div>
+    <div
+        *ngIf="!showSubtitle"
+        class="header system-info p-20 h-80"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center"
+    >
+        La información diligenciada en esta sección puede ser accedida y
+        editada en cualquier momento de la inspección, adicionalmente será
+        visualizada al final de la inspección para su confirmación y cierre.
+    </div>
+    <div class="content py-16">
+        <div class="subtitle" *ngIf="showSubtitle">Anexo fotográfico</div>        
+        <input #file type="file" hidden='true' accept="image/png, image/jpeg" (change)="loadFileInput($event)" />
+        <div fxLayout="row" fxLayout="start space-between" *ngIf="!finalState">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>{{ "SHARED.DESCRIPTION" | translate }}</mat-label>
+                <input matInput [(ngModel)]="attachmentDescription"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="file" (click)="file.click()">
+                <mat-label>Imagen</mat-label>
+                <input matInput placeholder="Selecciona un archivo" [(ngModel)]="fileName" readonly>
+                <mat-icon matSuffix>attach_file</mat-icon>
+            </mat-form-field>
+            <div class="pt-16 pl-8 action-btn">
+                <button
+                    mat-raised-button
+                    color="accent"
+                    *ngIf="!isLoading"
+                    [disabled]="!this.attachmentDescription || !this.fileToUpload"
+                    (click)="add()"
+                >
+                    {{ "SHARED.ADD" | translate }}
+                </button>
+                <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+            </div>
+        </div>
+        <h2 *ngIf="inspection.attachments?.length > 0">Listado de anexos</h2>
+        <div fxLayout="row" fxLayout="start space-between" *ngFor="let attachment of inspection.attachments">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>{{ "SHARED.DESCRIPTION" | translate }}</mat-label>
+                <input matInput [(ngModel)]="attachment.description" [readonly]="finalState"/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="file" (click)="loadAttachmentFile(attachment)">
+                <mat-label>Imagen</mat-label>
+                <input matInput placeholder="Selecciona un archivo" [(ngModel)]="attachment.fileName" readonly>
+                <mat-icon matSuffix>remove_red_eye</mat-icon>
+            </mat-form-field>
+            <div class="pt-16 pl-8 action-btn" *ngIf="!finalState">
+                <div  *ngIf="!attachment.isSaving">
+                    <button mat-icon-button color="accent" (click)="saveAttachment(attachment, 'U')">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn"  (click)="saveAttachment(attachment, 'D')">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>                    
+                <mat-spinner diameter="40" *ngIf="attachment.isSaving"></mat-spinner>
+            </div>
+        </div>
+    </div>
+</div>

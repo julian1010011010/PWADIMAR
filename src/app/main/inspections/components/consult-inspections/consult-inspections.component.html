@@ -1,0 +1,113 @@
+
+<div id="inspections_query" class="page-layout simple fullwidth p-24">
+  <div class="mat-card p-0">
+    <div class="card-header">
+      <h1>{{ 'INSPECTIONS_QUERY.TITLE' | translate}}</h1>
+    </div>
+    <div fxLayout="row" class="pt-24 px-24">
+      <mat-form-field appearance="outline" style="width: 300px !important; margin-right: 25px !important;">
+        <mat-label>
+          <span *ngIf="inspectionStates.length > 0">{{ 'INSPECTIONS_QUERY.LABEL' | translate}}</span>
+          <span *ngIf="inspectionStates.length == 0">{{ 'INSPECTIONS_QUERY.LOADING' | translate}}</span>
+        </mat-label>
+        <mat-select class="simplified" [(value)]="selectedState">
+            <mat-option (click)="clearResults()" [value]="option.id" *ngFor="let option of inspectionStates">{{ option.description }}</mat-option>
+        </mat-select>
+      </mat-form-field> 
+      <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+          <mat-label>{{'INSPECTIONS_QUERY.DATE_FROM' | translate}}</mat-label>
+          <input matInput type="date" [(ngModel)]="date_from">
+      </mat-form-field>
+      <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+          <mat-label>{{'INSPECTIONS_QUERY.DATE_TO' | translate}}</mat-label>
+          <input matInput type="date" [(ngModel)]="date_to">
+      </mat-form-field>   
+      <div class="pt-16" *ngIf="inspectionStates.length > 0">
+        <button mat-raised-button color="accent" *ngIf="!isLoading" (click)="searchInspection()">{{ 'INSPECTIONS_QUERY.SEARCH' | translate}}</button>
+        <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+      </div>
+    </div>
+  </div>
+  <div class="mat-card p-0 mt-24" *ngIf="!isHidden">
+    <div class="card-header">
+      <h1>{{ 'SHARED.RESULTS' | translate}}</h1>
+    </div>
+    <ngx-datatable class="material" 
+    #inspection
+    [rows]="rows" 
+    [headerHeight]="50"
+    [rowHeight]="auto"
+    [footerHeight]="50"
+    [scrollbarH]="true"
+    [columnMode]="'force'"
+    [limit]="limit"
+    [count]="count"
+    [offset]="offset">
+      <ngx-datatable-column [sortable]="false" name="Número de radicado" prop="settled">
+        <ng-template let-value="value"  ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [sortable]="false" name="Fecha de solicitud" prop="settlementDate">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date:'d/M/yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [sortable]="false" name="Matrícula" prop="registrationNumber">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [sortable]="false" name="Nombre de nave" prop="nameShip">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [sortable]="false" name="Tipo de inspección" prop="inspectionTypeDescription" width="300" class="datatable-wrap-text">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [sortable]="false" name="Capitanía" prop="captaincy">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column *ngIf="selectedState != 'C'" [sortable]="false" name="Fecha de inspección" prop="schedulingDate">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date:'d/M/yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column *ngIf="selectedState == 'C'" [sortable]="false" name="Fecha de cancelación" prop="cancellationDate">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date:'d/M/yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column *ngIf="selectedState == 'T'" [sortable]="false" name="Fecha de realización" prop="realizationDate">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date:'d/M/yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column *ngIf="selectedState == 'P' || selectedState == 'S' " [sortable]="false" name="Fecha de recepción" prop="receptionDate">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value | date:'d/M/yyyy'}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column *ngIf="selectedState == 'C'" [sortable]="false" name="Motivo cancelación" prop="cancellationReason">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column *ngIf="showInspectorColumn()" [sortable]="false" name="Inspector" prop="inspectorName">
+        <ng-template let-value="value" ngx-datatable-cell-template>
+          {{value}}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column [sortable]="false" name="Acciones" width="90" [frozenRight]="true">
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <button mat-raised-button class="cta-button" color="accent" type="button" (click)="openDialog(row, rowIndex, value)">{{ 'INSPECTIONS_QUERY.SHOW' | translate}}</button>       
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="content py-16">
+    <div class="subtitle">{{ 'CERTIFICATES_INSPECTION.TITLE' | translate}}</div>    
+    <div fxLayout="row" fxLayout.xs="column" fxLayout="start space-between" *ngIf="!finalState">
+        <div fxFlex fxLayout="row" fxLayout.xs="column" fxLayout="start space-between">
+            <mat-form-field fxFlex="50" appearance="outline" class="pr-8">
+                <mat-label>
+                    <span *ngIf="certificateTypes.length > 0">{{ 'CERTIFICATES_INSPECTION.CERTIFICATE_TYPE' | translate}}</span>
+                    <span *ngIf="certificateTypes.length == 0">
+                        <span *ngIf="!loadingTypesError">{{ 'SHARED.LOADING' | translate}}</span>
+                        <span *ngIf="loadingTypesError">{{ 'SHARED.LOADING_ERROR' | translate}}</span>
+                    </span>
+                </mat-label>
+                <mat-select class="simplified" [(ngModel)]="selectedType">
+                    <mat-option [value]="option.id" *ngFor="let option of certificateTypes">{{ option.description }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex="50" appearance="outline" class="pr-8">
+                <mat-label>
+                    <span *ngIf="generationTypes.length > 0">{{ 'CERTIFICATES_INSPECTION.GENERATION_TYPE' | translate}}</span>
+                    <span *ngIf="generationTypes.length == 0">
+                        <span *ngIf="!loadingGenerationError">{{ 'SHARED.LOADING' | translate}}</span>
+                        <span *ngIf="loadingGenerationError">{{ 'SHARED.LOADING_ERROR' | translate}}</span>
+                    </span>
+                </mat-label>
+                <mat-select class="simplified" [(ngModel)]="selectedGenerationType">
+                    <mat-option [value]="option.id" *ngFor="let option of generationTypes">{{ option.description }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="0 0 95px" class="pt-16 pl-8 action-btn">
+            <button
+                mat-raised-button
+                color="accent"
+                *ngIf="!isLoading"
+                [disabled]="!selectedType || !selectedGenerationType"
+                (click)="add()"
+            >
+                {{ "SHARED.ADD" | translate }}
+            </button>
+            <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+        </div>
+    </div>
+    <h2 *ngIf="inspection.certificates?.length > 0">{{ 'CERTIFICATES_INSPECTION.LIST' | translate}}</h2>
+    <div fxLayout="row" fxLayout="start space-between" *ngFor="let certificate of inspection.certificates">
+        <div fxFlex fxLayout="row" fxLayout="start space-between">
+            <mat-form-field fxFlex="50" appearance="outline" class="pr-8">
+                <mat-label>{{ 'CERTIFICATES_INSPECTION.CERTIFICATE_TYPE' | translate}}</mat-label>
+                <input matInput [(ngModel)]="certificate.description" readonly="true"/>
+            </mat-form-field>
+            <mat-form-field fxFlex="50" appearance="outline" class="pr-8">
+                <mat-label>{{ 'CERTIFICATES_INSPECTION.GENERATION_TYPE' | translate}}</mat-label>
+                <input matInput [(ngModel)]="certificate.fileName" readonly="true"/>
+            </mat-form-field>
+        </div>
+        <div fxFlex="0 0 50px" class="pt-16 pl-8 action-btn" *ngIf="!finalState">
+            <div  *ngIf="!certificate.isSaving">
+                <button mat-icon-button color="warn" (click)="saveCertificates(certificate, 'D')">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>                    
+            <mat-spinner diameter="40" *ngIf="certificate.isSaving"></mat-spinner>
+        </div>
+    </div>
+</div>

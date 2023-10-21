@@ -1,0 +1,29 @@
+#close-inspection {
+
+    .system-info{
+    background: #cbebfb;
+    color: black !important;
+    }
+
+    .content {
+        padding: 0 24px 24px 24px;
+
+        .action-btn {
+            width: 95px;
+        }
+
+        .date {
+            margin-left: 12px;
+            max-width: 250px;
+            cursor: pointer;
+
+            input {
+                cursor: pointer;
+            }
+        }
+
+        ::ng-deep .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+    }
+}

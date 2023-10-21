@@ -1,0 +1,36 @@
+<div *ngIf="!showSubtitle" class="header system-info p-20 h-80 " fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+        La información diligenciada en esta sección puede ser accedida
+            y editada en cualquier momento de la inspección, adicionalmente será
+            visualizada al final de la inspección para su confirmación y cierre.
+</div>
+<div class="content py-16">
+    <div class="subtitle" *ngIf="showSubtitle">Conclusiones</div>    
+    <mat-form-field appearance="outline" class="conclusions-text">
+        <mat-label>Conclusiones / Observaciones</mat-label>
+        <textarea matInput
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="8"
+                    cdkAutosizeMaxRows="8"
+                    [(ngModel)]="inspection.inspection.conclusions"
+                    (ngModelChange)="onModelChange($event)"
+                    [attr.maxlength]="counter ? maxNumberOfCharacters : ''"
+                    [readonly]="finalState">
+        </textarea>
+    </mat-form-field>
+    <div class="conclusions-counter">
+        <span>{{numberOfCharacters2}} / {{maxNumberOfCharacters}}</span>
+    </div>
+</div> 
+<!-- </mat-dialog-content>
+<mat-dialog-actions align="end">
+    <div class="success-message" *ngIf="success">{{ 'SHARED.DATA_SAVED' | translate }}</div>
+    <div class="error-message" *ngIf="error">{{ error }}</div>
+    <div *ngIf="savingData" class="pr-12">
+        <mat-spinner diameter="35"></mat-spinner>
+    </div>
+    <button mat-raised-button color="accent" (click)="saveConclusions()" [disabled]="!data.inspection.conclusions" *ngIf="!savingData">Guardar</button>
+    <button mat-raised-button color="accent" class="red" (click)="closeDialog()">Cerrar</button>
+</mat-dialog-actions> -->
+
+
+    

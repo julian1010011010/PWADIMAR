@@ -1,0 +1,165 @@
+<div class="content p-8">
+    <div class="mat-display-1">
+        Información de la nave o artefacto naval
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="center" fxFlex="100" class="content-img">
+            <div *ngIf="shipImage == undefined" id="silverfox">
+                <img src="assets/images/avatars/ship.jpg">
+            </div>
+            <div *ngIf="shipImage != undefined">
+                <img [src]="shipImage">
+            </div>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.NAME' | translate}}: </strong>{{dataDetail.shipName}}</span>
+            <span fxFlex="50"><strong>{{'FILES.ENROLLMENT' | translate}}:
+                </strong>{{dataDetail.registrationNumber}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.PORT_REGISTRATION' | translate}}:
+                </strong>{{dataDetail.registrationPort}}</span>
+            <span fxFlex="50"><strong>{{'FILES.OWNERS' | translate}}: </strong>{{dataDetail.owner}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.NUMBER_OMI_NIC' | translate}}: </strong>{{dataDetail.omiNic}}</span>
+            <span fxFlex="50"><strong>MMSI: </strong>{{dataDetail.mmsi}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.YEAR_CONSTRUCTION' | translate}}:
+                </strong>{{dataDetail.builtDate | date:'yyyy'}}</span>
+            <span fxFlex="50"><strong>{{'FILES.ESLORA' | translate}}: </strong>{{dataDetail.length}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.GROUP' | translate}}: </strong>{{dataDetail.group}}</span>
+            <span fxFlex="50"><strong>{{'FILES.SUBGROUP' | translate}}: </strong>{{dataDetail.subgroup}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.NAVIGATION_TYPE' | translate}}:
+                </strong>{{dataDetail.navegationType}}</span>
+            <span fxFlex="50"><strong>{{'FILES.TYPE_OF_TRAFFIC' | translate}}:
+                </strong>{{dataDetail.trafficType}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.STATUS' | translate}}: </strong>{{dataDetail.operationStatus}}</span>
+            <span fxFlex="50"><strong>{{'FILES.GROSS_TONNAGE' | translate}}: </strong>{{dataDetail.grossTonnage}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.NET_TONNAGE' | translate}}: </strong>{{dataDetail.netTonnage}}</span>
+            <span fxFlex="50"><strong>{{'FILES.DEAD_WEIGHT' | translate}}: </strong>{{dataDetail.deadWeight}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.CALL_SIGN' | translate}}: </strong>{{dataDetail.letters}}</span>
+            <span fxFlex="50"><strong>{{'FILES.SLEEVE' | translate}}: </strong>{{dataDetail.sleeve}}</span>
+        </div>
+    </div>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="end" fxFlex="100">
+            <span fxFlex="50"><strong>{{'FILES.PROPULSION_SYSTEM' | translate}}: </strong>{{dataDetail.propulsionType}}</span>
+            <span fxFlex="50"><strong>{{'FILES.POWER_PROPULSION_SYSTEM' | translate}}:
+                </strong>{{dataDetail.power}}</span>
+        </div>
+    </div>
+</div>
+<div class="content p-8 page">
+    <div class="mat-display-1">
+        Documentos
+    </div>
+    <div>
+        <mat-divider></mat-divider>
+        <strong class="mat-title p-8">{{'FILES.ENROLLMENT' | translate}}</strong>
+        <div *ngFor="let item of dataDetail.registrationDocuments">
+            <span fxFlex="25"><strong>{{'FILES.NAME_FILE' | translate}}: </strong>{{item.fileName}}</span>
+            <span fxFlex="25"><strong>{{'FILES.TYPE_FILE' | translate}}:
+                </strong>{{item.registrationDocumentType}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_ISSUANCE' | translate}}:
+                </strong>{{item.issuanceDate}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_RECORD' | translate}}:
+                </strong>{{item.recordDate}}</span>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div>
+        <strong class="mat-title p-8">{{'FILES.INSPECTIONS' | translate}}</strong>
+        <div *ngFor="let item of dataDetail.inspectionDocuments">
+            <span fxFlex="25"><strong>{{'FILES.NAME_FILE' | translate}}: </strong>{{item.fileName}}</span>
+            <span fxFlex="25"><strong>{{'FILES.INSPECTION_TYPE' | translate}}:
+                </strong>{{item.inspectionType}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_ISSUANCE' | translate}}:
+                </strong>{{item.issuanceDate}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_RECORD' | translate}}:
+                </strong>{{item.recordDate}}</span>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div>
+        <strong class="mat-title p-8">{{'FILES.CERTIFICATES' | translate}}</strong>
+        <div *ngFor="let item of dataDetail.certificateDocuments">
+            <span fxFlex="20"><strong>{{'FILES.NAME_FILE' | translate}}: </strong>{{item.fileName}}</span>
+            <span fxFlex="20"><strong>{{'FILES.TYPE_CERTIFICATE' | translate}}:
+                </strong>{{item.certificateType}}</span>
+            <span fxFlex="20"><strong>{{'FILES.GENERATION_TYPE' | translate}}:
+                </strong>{{item.certificateGenerationType}}</span>
+            <span fxFlex="20"><strong>{{'FILES.DATE_ISSUANCE' | translate}}:
+                </strong>{{item.issuanceDate}}</span>
+            <span fxFlex="20"><strong>{{'FILES.DATE_RECORD' | translate}}:
+                </strong>{{item.recordDate}}</span>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div>
+        <strong class="mat-title p-8">{{'FILES.MODIFICATIONS' | translate}}</strong>
+        <div *ngFor="let item of dataDetail.modificationDocuments">
+            <span fxFlex="25"><strong>{{'FILES.NAME_FILE' | translate}}: </strong>{{item.fileName}}</span>
+            <span fxFlex="25"><strong>{{'FILES.MODIFICATION_TYPE' | translate}}:
+                </strong>{{item.modificationDocumentType}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_ISSUANCE' | translate}}:
+                </strong>{{item.issuanceDate}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_RECORD' | translate}}:
+                </strong>{{item.recordDate}}</span>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div>
+        <strong class="mat-title p-8">{{'FILES.LEGAL_ISSUES' | translate}}</strong>
+        <div *ngFor="let item of dataDetail.legalDocuments">
+            <span fxFlex="25"><strong>{{'FILES.NAME_FILE' | translate}}: </strong>{{item.fileName}}</span>
+            <span fxFlex="25"><strong>{{'FILES.TYPE_DOCUMENT' | translate}}:
+                </strong>{{item.legalDocumentType}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_ISSUANCE' | translate}}:
+                </strong>{{item.issuanceDate}}</span>
+            <span fxFlex="25"><strong>{{'FILES.DATE_RECORD' | translate}}:
+                </strong>{{item.recordDate}}</span>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+    <div>
+        <strong class="mat-title p-8">{{'FILES.OFFICIAL_COMMUNICATIONS' | translate}}</strong>
+        <div *ngFor="let item of dataDetail.otherDocuments">
+            <span fxFlex="34"><strong>{{'FILES.NAME_FILE' | translate}}: </strong>{{item.fileName}}</span>
+            <span fxFlex="34"><strong>{{'FILES.DESCRIPTION' | translate}}:
+                </strong>{{item.description}}</span>
+            <span fxFlex="34"><strong>{{'FILES.DATE_RECORD' | translate}}:
+                </strong>{{item.recordDate}}</span>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</div>

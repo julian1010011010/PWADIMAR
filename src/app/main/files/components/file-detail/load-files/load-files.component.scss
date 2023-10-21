@@ -1,0 +1,25 @@
+.style-Header {
+ justify-content: center !important;
+}
+
+.fixed-width-button {
+    width: 180px;
+}
+
+@media (max-width: 1200px) {
+    .fixed-width-button {
+        width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .fixed-width-button {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fixed-width-button {
+        width: 100px;
+    }
+}

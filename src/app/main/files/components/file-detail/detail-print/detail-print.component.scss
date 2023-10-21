@@ -1,0 +1,12 @@
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: top;
+    border: solid;
+    margin-bottom: 20px;
+}
+@media print{
+    .page{
+        page-break-before:always;
+     }
+  }

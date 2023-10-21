@@ -1,0 +1,49 @@
+<div id="consult" class="page-layout simple fullwidth">
+    <div class="content p-24">
+        <div class="card-header">
+            <h1>{{ "FILES.TITLE" | translate }} {{ nameDocument }}</h1>
+        </div>
+        <div
+            fxLayout="column"
+            fxLayoutAlign="space-evenly none"
+            *ngIf="currentPdf"
+        >
+        <ngx-extended-pdf-viewer
+        [showDownloadButton]="false"
+        [showBookmarkButton]="false"
+        [showPrintButton]="false"
+        [base64Src]="currentPdf"
+        [useBrowserLocale]="true"
+        [delayFirstView]="1000"
+        height="80vh"
+        [showOpenFileButton]="true"
+        [showScrollingButton]="true"
+        [showSpreadButton]="true"
+        [showPropertiesButton]="true"
+        [showPresentationModeButton]="true"
+        [textLayer]="true"
+        [handTool]="true" 
+        [showZoomButtons]="true"
+        [showSecondaryToolbarButton]="true"
+        [showFindButton]="true"
+        [showPagingButtons]="true"
+        [showRotateButton]="true"
+        [showHandToolButton]="true"
+    >
+    </ngx-extended-pdf-viewer>
+    
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+        <mat-form fxFlex="10" fxLayoutAlign="center" class="pr-24 pb-8">
+            <button
+                mat-raised-button
+                color="accent"
+                class="submit-button"
+                routerLink="/expedientes/detalle/{{ registrationNumbers }}"
+            >
+                {{ "FILES.RETURN" | translate }}
+            </button>
+        </mat-form>
+    </div>
+</div>

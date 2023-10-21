@@ -1,0 +1,84 @@
+<div class="page-layout simple fullwidth">
+    <div class="mat-card">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="px-24 style-Header" >
+            <h2>{{'FILES.TITLE' | translate}}</h2>
+        </div>
+        <div class="row" style="display: flex; justify-content: space-between; align-items: center; margin-left: 2%; margin-right: 2%;">
+            <div class="col s4">
+                <span class="flow-text">
+                   {{'FILES.TITLE_DESCRIPTION' | translate}}
+                </span>
+            </div>
+            <div class="col s8" style="text-align: right;">
+                <button mat-raised-button color="accent" class="submit-button" (click)="download()">
+                    {{'FILES.DOWNLOAD_ EXCEL _TEMPLATE'| translate}}
+                </button>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 5%; display: flex; margin-left: 2%; align-items: center;">
+            <div class="col s8">
+                <span class="flow-text">
+                    {{'FILES.WANT_TO_LOAD' | translate}}
+                </span>
+            </div>
+            <div class="col s4" style="margin-left: 3%;">
+                <mat-radio-group fxLayoutAlign="start start">
+                    <mat-radio-button [value]="true" style="margin-right: 10%;" (click)="openDialog(true, false, '','')">{{'FILES.PROCEEDINGS' | translate}}</mat-radio-button>
+                    <mat-radio-button [value]="false" (click)="openDialog(false, false, '', '')">{{'FILES.INDEX' | translate}}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4 tab-blue" style="background: white; margin-top: 2%;" (selectedTabChange)="onTabChange($event)">
+            <mat-tab label="Expediente">
+            <ngx-datatable
+                class="material"   
+                [rows]="rows" 
+                [columnMode]="'flex'" 
+                [headerHeight]="'auto'"  
+                [footerHeight]="'auto'"  
+                [rowHeight]="'auto'" 
+                [limit]="5">
+                <ngx-datatable-column name="Número de tomo" prop="fileName" [flexGrow]="1"></ngx-datatable-column>
+                <ngx-datatable-column name="Tamaño" prop="size" [flexGrow]="1"></ngx-datatable-column>
+                <ngx-datatable-column name="Fecha creación" prop="dateCreated" [flexGrow]="1"></ngx-datatable-column>
+                <ngx-datatable-column name="Gestión" [flexGrow]="1">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <div style="display: flex; justify-content: space-around; gap: 10px; flex-wrap: wrap">
+                           <button mat-raised-button color="warn" class="submit-button fixed-width-button" (click)="openDialog(esExpediente, true, row, 'pdf')"> {{'FILES.REPLACE' | translate}}</button>
+                           <button mat-raised-button color="primary" class="submit-button fixed-width-button" (click)="openDialog(esExpediente, false, row, 'pdf')"> {{'FILES.ATTACH' | translate}}</button>
+                        </div>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>  
+            </mat-tab>
+            <mat-tab label="Indice">
+                <ngx-datatable
+                    class="material"   
+                    [rows]="rows" 
+                    [columnMode]="'flex'" 
+                    [headerHeight]="'auto'"  
+                    [footerHeight]="'auto'"  
+                    [rowHeight]="'auto'" 
+                    [limit]="5">
+                    <ngx-datatable-column name="Número de tomo" prop="numeroTomo" [flexGrow]="1"></ngx-datatable-column>
+                    <ngx-datatable-column name="Cantidad de documentos" prop="numberIndexDocument" [flexGrow]="1"></ngx-datatable-column>
+                    <ngx-datatable-column name="Fecha creación" prop="dateCreated" [flexGrow]="1">
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            {{ isValidDate(value) ? (value | date: 'dd/MM/yyyy') : 'NO REGISTRA' }}
+                          </ng-template> 
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Gestión" prop="numeroTomo" [flexGrow]="1">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                            <div style="display: flex; justify-content: space-around; gap: 10px; flex-wrap: wrap">
+                               <button mat-raised-button color="warn" class="submit-button fixed-width-button" (click)="openDialog(esExpediente, true, row, 'excel')"> {{'FILES.REPLACE' | translate}}</button>
+                               <button mat-raised-button color="primary" class="submit-button fixed-width-button" (click)="openDialog(esExpediente, false, row, 'excel')"> {{'FILES.ATTACH' | translate}}</button>
+                            </div>
+                        </ng-template>
+                    </ngx-datatable-column>
+            </ngx-datatable>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
+

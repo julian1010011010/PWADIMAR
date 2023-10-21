@@ -1,0 +1,31 @@
+.report-logins {
+    padding: 24px;
+    background: #ffffff;
+    width: 100%;
+}
+
+.ngx-datatable {
+    margin: 0 auto; /* Centra la tabla horizontalmente */
+    max-width: 800px; /* Ancho máximo de la tabla */
+    border: 1px solid #ccc; /* Borde alrededor de la tabla */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra */
+}
+
+.text-center {
+    text-align: center;
+}
+
+.submit-button {
+    margin: 15%; /* Centra horizontalmente el botón */
+}
+.centered-table {
+    margin: 0 auto; /* Centra horizontalmente la tabla */
+    max-width: 800px; /* Ajusta el ancho máximo de la tabla según tus necesidades */
+    border: 1px solid #ccc; /* Agrega un borde alrededor de la tabla si lo deseas */
+    border-radius: 5px; /* Bordes redondeados si lo deseas */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sombra si lo deseas */
+}
+.center-button {
+    margin: 0 auto; /* Centra el botón horizontalmente */
+}

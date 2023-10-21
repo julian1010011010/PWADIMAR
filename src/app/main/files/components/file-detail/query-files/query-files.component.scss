@@ -1,0 +1,86 @@
+/* General styles */
+.no-padding {
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.center-aligned, .centered-column {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Form fields styles */
+.form-fields-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* cuatro columnas de igual tamaño */
+    gap: 15px;
+}
+
+.date-fields-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start; /* Alineación vertical superior */
+    margin-top: 8px;
+}
+
+/* Search bar styles */
+.busqueda {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.busqueda--input {
+    width: 95%;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.fixed-width-button {
+    width: 180px;
+}
+
+@media (max-width: 1200px) {
+    .fixed-width-button {
+        width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .fixed-width-button {
+        width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .fixed-width-button {
+        width: 100px;
+    }
+}
+
+.mat-dialog-title {
+    color: #f44336; // Rojo Material para errores
+    font-weight: bold;
+}
+
+.mat-dialog-content {
+    padding: 20px;
+    font-size: 1.1em;
+    color: #333;
+    background-color: #f9eaea; // Un fondo claro rojo
+}
+
+
+
+
+
+
+
+

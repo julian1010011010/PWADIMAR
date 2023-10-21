@@ -1,0 +1,346 @@
+<mat-card>
+  <div class="container">
+      <div class="header">
+          <p class="text-primary"><b>FORMATO DE INFORME DE INSPECIÓN</b></p> 
+          <p>(Aplica para las inspecciones inicial, anual, intermedia y renovación)</p>
+          <br>
+          <p class="text-secundary">Elpresente formato se enmarca en lo establecido en el Reglamento de Catalogación, inspección y
+            certificación de naves y artefactos navales de la bandera colombiana (resolución 220 del 2012, modificada
+            por la resolución 415 de 2014).</p>
+          <br>
+          <br>
+      </div>
+  
+      <div class="button-container">
+        <button mat-stroked-button color="accent" class="button">Conclusiones</button>
+        <button mat-stroked-button color="accent" class="button">Deficiencias</button>
+        <button mat-stroked-button color="accent" class="button">Anexo</button>    
+      </div>
+
+      <div class="content">
+        <div>
+          <br>
+          <br>
+          <!--Puente de gobierno.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    PUENTE DE GOBIERNO.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>                
+               
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion> 
+          
+           <!--Sistema de navegación.-->
+           <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA DE NAVEGACIÓN.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>  
+
+          <!--Sistema de comunicaciones.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA DE COMUNICACIONES.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!--Sistema de seguridad y salvamento.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA DE SEGURIDAD Y SALVAMENTO.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!--Sistema de cubierta.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA DE CUBIERTA.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!--Sistema de achique y contraincendio.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA DE ACHIQUE Y CONTRAINCENDIO.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!--Sistema eléctrico y de generación.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA ELÉCTRICO Y DE GENERACIÓN.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!--Sistema de propulsión y gobierno.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA DE PROPULSIÓN Y GOBIERNO.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!--Espacios de carga y doble fondos.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    ESPACIOS DE CARGA Y DOBLE FONDOS.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+          <!--Sistema de prevención de la contaminación.-->
+          <mat-accordion>
+            <mat-expansion-panel class="class-align">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    SISTEMA DE DE PREVENCIÓN DE LA CONTAMINACIÓN.
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+      
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                           
+                <ng-container matColumnDef="item">
+                  <th mat-header-cell *matHeaderCellDef> ITEM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="requisito">
+                  <th mat-header-cell *matHeaderCellDef> REQUISITO </th>
+                  <td mat-cell *matCellDef="let element"> {{element.requisito}} </td>
+                </ng-container>
+                              
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef> DESCRIPCION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+  </div>
+</mat-card>

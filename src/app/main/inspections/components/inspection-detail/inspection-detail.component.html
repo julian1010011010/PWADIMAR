@@ -1,0 +1,129 @@
+<div id="inspection-details">
+  <h1 mat-dialog-title class="header accent  p-24 h-60">
+    {{ 'INSPECTION_DETAILS.title' | translate }} - 
+    {{ inspection?.inspectionTypeDescription }}
+  </h1>
+  <div mat-dialog-content>
+    <div *ngIf="!inspection" class="load-spinner">
+      <mat-spinner diameter="70"></mat-spinner>
+    </div>
+    <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+      <div fxLayout="column" fxLayoutAlign="center" fxFlex="1 0 auto" *ngIf="inspection">
+        <p>{{ 'INSPECTION_DETAILS.title' | translate }}</p>
+        <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1  auto">
+            <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.settledNumber' | translate }}</mat-label>
+                <input matInput [value]="inspection.settled" readonly/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="25"  class="pl-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.nameShip' | translate }}</mat-label>
+                <input matInput [value]="inspection.nameShip" readonly/>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.requestDate' | translate }}</mat-label>
+              <input matInput [value]="transformDate(inspection.settlementDate)" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.enrollmentNumber' | translate }}</mat-label>
+              <input matInput [value]="inspection.registrationNumber" readonly>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1  auto">
+            <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.typeInspection' | translate}}</mat-label>
+                <input matInput [value]="inspection.inspectionTypeDescription" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="25"  class="pl-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.captaincy' | translate}}</mat-label>
+                <input matInput [value]="inspection.captaincy" readonly>
+            </mat-form-field>
+            <mat-form-field *ngIf="inspection.state != 'C'" appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.inspectionDate' | translate }}</mat-label>
+              <input matInput [value]="transformDate(inspection.schedulingDate)" readonly>
+            </mat-form-field>
+            <mat-form-field *ngIf="inspection.state == 'P' || inspection.state == 'S' " appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.receptionDate' | translate }}</mat-label>
+              <input matInput [value]="transformDate(inspection.receptionDate)" readonly>
+            </mat-form-field>
+            <mat-form-field *ngIf="inspection.state == 'T'" appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.realizationDate' | translate }}</mat-label>
+              <input matInput [value]="transformDate(inspection.realizationDate)" readonly>
+            </mat-form-field>
+            <mat-form-field *ngIf="inspection.state == 'C'" appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.cancellationDate' | translate }}</mat-label>
+              <input matInput [value]="transformDate(inspection.cancellationDate)" readonly>
+            </mat-form-field>
+          </div> 
+          <div  fxLayout="row wrap" fxLayoutAlign="start center">
+            <mat-form-field *ngIf="inspection.state == 'C'" appearance="outline" fxFlex="100" >
+                <mat-label>{{ 'INSPECTION_DETAILS.observations' | translate }}</mat-label>
+                <textarea matInput [value]="inspection.cancellationReason" readonly></textarea>
+            </mat-form-field>
+          </div>
+          <p>{{ 'INSPECTION_DETAILS.inspectorDetails' | translate }}</p>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1  auto">
+            <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.typeDocument' | translate }}</mat-label>
+                <input matInput [value]="inspection.inspectorIdentityType" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="25"  class="pl-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.idNumber' | translate }}</mat-label>
+                <input matInput [value]="inspection.inspectorIdentity" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.names' | translate }}</mat-label>
+              <input matInput [value]="inspection.inspectorName" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="25" class="pl-4">
+              <mat-label>{{ 'INSPECTION_DETAILS.surnames' | translate }}</mat-label>
+              <input matInput [value]="inspection.inspectorLastName" readonly>
+            </mat-form-field>
+          </div> 
+          <p>{{ 'INSPECTION_DETAILS.shipDetails' | translate }}</p>
+          <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 auto" >
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.omiNic' | translate }}</mat-label>
+                <input matInput [value]="shipInfo.omiNic" readonly>
+            </mat-form-field>
+            <mat-form-field appearance="outline" fxFlex="50"  class="pl-4">
+                <mat-label>{{ 'INSPECTION_DETAILS.owner' | translate }}</mat-label>
+                <input matInput [value]="shipInfo.owner" readonly>
+            </mat-form-field>
+          </div>
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'INSPECTION_DETAILS.cataloging' | translate }}</mat-label>
+            <textarea matInput 
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="3"
+              cdkAutosizeMaxRows="3"
+              [(ngModel)]="shipInfo.catalogationInfo"
+              readonly></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'INSPECTION_DETAILS.formatType' | translate }}</mat-label>
+            <mat-select [(value)]="selectedFormatType" [disabled]="readOnlyFormatType">
+                <mat-option [value]="option.id" *ngFor="let option of formatTypes">{{ option.description }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>    
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" *ngIf="inspection">
+      <button *ngIf="inspection.state == 'P'" mat-raised-button color="accent" class="submit-button" (click)="createBlankPDF(false)" [disabled]="!selectedFormatType">{{ 'INSPECTION_DETAILS.generateBlankForm' | translate }}</button>
+      <button *ngIf="inspection.state != 'C'" mat-raised-button color="accent" class="submit-button" (click)="goToInspection()" [disabled]="!selectedFormatType">
+        <span *ngIf="inspection.state == 'P'">{{ 'SHARED.GENERATE' | translate}} </span>
+        <span *ngIf="inspection.state == 'S'">{{ 'SHARED.CONTINUE' | translate}} </span>
+        <span *ngIf="inspection.state == 'T'">{{ 'SHARED.VIEW' | translate}} </span> 
+        <span>{{ 'INSPECTION_DETAILS.generateInspectionForm' | translate }}</span>
+      </button>
+      <button *ngIf="inspection.state == 'T'" mat-raised-button color="accent" class="submit-button" (click)="createBlankPDF(true)" [disabled]="!selectedFormatType">{{ 'INSPECTION_DETAILS.exportPDF' | translate }}</button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end center" fxFlex="1 0 auto" >
+      <survey-control style="width: 50px; margin-top: -30px; overflow: hidden;" *ngIf="shipInfo" spinnerDiameter="35" surveyHeight="0px" renderSurveyComponent="N" 
+        surveyComponentId="inspectionFormat" [fileName]='shipInfo.shipName' [title]="title" [subTitle]="subTitle" [code]="code" [version]="version" [process]="process" [logo]='logo' [note]="note" [resolution] ="resolution"></survey-control>
+      <mat-spinner diameter="40" *ngIf="updatingInspectionType"></mat-spinner>
+      <button mat-raised-button color="accent" class="red ml-8" (click)="closeDialog()">{{ 'INSPECTION_DETAILS.close' | translate }}</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.system-info{
+    background: #cbebfb;
+    color: black !important;
+}
+.content {
+    .subtitle {
+        background: aliceblue;
+        padding: 12px 0;
+        font-size: 1.5em;
+        font-weight: bold;
+        border-bottom: 1px solid gray;
+        margin-bottom: 12px;
+        color: #34495E;
+    }
+    .conclusions-text {
+        width: 100%;
+    }
+    .conclusions-counter {
+        text-align: right;
+    }
+    
+    ::ng-deep .mat-form-field-wrapper {
+        padding-bottom: 0;
+    }
+}

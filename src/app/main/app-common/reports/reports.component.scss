@@ -1,0 +1,20 @@
+.report-control {
+  padding: 24px;
+  
+  .sections-title {
+    text-align: left;
+    padding: 1px 24px;
+  }
+
+  .grid-container {
+    padding: 30px 12px;
+    
+    table {
+      width: 100% !important;
+    }
+  }  
+
+  .chart-container {
+    padding: 30px 12px;
+  }
+}

@@ -1,0 +1,22 @@
+i, mat-icon {
+    font-size: 60px !important;
+    width: 60px !important;
+    height: 60px !important;
+    min-width: 60px !important;
+    min-height: 60px !important;
+    line-height: 60px !important;
+    margin-right: 10px;
+}
+p{
+    position: relative;
+    top: 0;
+}
+
+.mat-dialog-title {
+    margin: -24px -24px 20px;
+    display: block;
+}
+.alingText{
+    display: flex; 
+    align-items: center
+}

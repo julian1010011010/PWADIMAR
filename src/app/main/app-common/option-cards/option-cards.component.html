@@ -1,0 +1,50 @@
+<div id="option-cards" (resized)="onResized($event)">
+    <carousel
+    [autoplay]="true"
+    [pauseOnHover]="false"
+    class="carousel-height custom-carousel"
+    [images]="imageUrlArray"
+    cellsToShow="2"
+    loop="true"
+    autoplay="true"
+    autoplayInterval="8000"
+    arrows="true"
+    borderRadius="50"
+    cellWidth="'100%'"
+    lightDOM="true"
+    objectFit="'contain'"
+    *ngIf="showSlide"
+>
+</carousel>
+
+
+    <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between center"
+    >
+        <div *ngFor="let option of cards" class="pt-24">
+            <mat-card class="options-card" (click)="goTo(option)">
+                <mat-card-content class="options-card-content">
+                    <div fxLayout="row">
+                        <div fxFlex="60px">
+                            <img [src]="option.customIcon" />
+                        </div>
+                        <div
+                            fxFlex
+                            class="pl-8"
+                            [ngClass]="{ information: !option.description }"
+                        >
+                            <div class="card-title">
+                                {{ option.translate | translate }}
+                            </div>
+                            <div class="card-description">
+                                {{ option.description | translate }}
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

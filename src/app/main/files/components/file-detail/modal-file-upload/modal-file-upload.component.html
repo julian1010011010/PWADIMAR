@@ -1,0 +1,44 @@
+<h1 mat-dialog-title class="header accent  p-24 h-60">
+    Cargar archivo
+</h1>
+<mat-dialog-content>
+    <div id="ngx-datatable" class="page-layout simple fullwidth docs">
+        <div fxLayout="row" fxLayoutAlign="start" fxFlex="100" class="p-8" fxLayout.xs="column">
+            <div fxFlex="100" class="message-box info">
+                {{'FILES.MESSAGE_NOTIFICATION' | translate}}
+            </div>
+        </div>
+        <div class="content p-8">
+            <form name="addFile" [formGroup]="loadFiles" novalidate class="p-24" fxLayout="column"
+                fxLayoutAlign="center" fxFlex="1 0 auto">
+                <input #file type="file" accept="{{data.esExpediente == false ? typeFilePdf : typeFileXslx}}" hidden='true'
+                    (change)="loadFileInput($event.target.files)" [attr.accept]="acceptedFileTypes" />
+                <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto" fxLayout.xs="column">
+                    <mat-form-field appearance="outline" fxFlex="100" (click)="file.click()" class="pr-4">
+                        <mat-label>{{'FILES.LOAD_DOCUMENT' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="FileName" placeholder="Seleccionar archivo "
+                            readonly>
+                        <mat-icon matSuffix>attach_file</mat-icon>
+                        <mat-error *ngIf="loadFiles.get('FileName').hasError('required')">
+                            {{'FILES.ERROR_LOAD_DOCUMENT' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <div fxLayout="row wrap" fxLayoutAlign="center center" fxFlex="1 0 auto" fxLayout.xs="column">
+        <mat-form fxFlex="50" class="ml-8" fxLayoutAlign="center" class="pr-4">
+            <button mat-raised-button color="accent" 
+                (click)="onSiClick()">Aceptar</button>
+        </mat-form>
+        <mat-form fxFlex="50" fxLayoutAlign="center" class="pr-4">
+            <button mat-raised-button class="red" (click)="onNoClick()">Cancelar</button>
+        </mat-form>
+    </div>
+</mat-dialog-actions>
+ 
+<mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>

@@ -1,0 +1,151 @@
+@import "src/@fuse/scss/fuse";
+
+.outlined-button {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid white !important;
+
+}
+
+ 
+
+.mat-form-field-infix input {
+    width: calc(100% - 40px);
+    /* El tamaño total menos el ancho del botón */
+}
+
+.mat-form-field-infix button {
+    width: 40px;
+    /* Ancho del botón */
+}
+
+
+
+/* Oculta el contorno del campo de formulario solo para este componente */
+.login-form-container .mat-form-field-appearance-outline .mat-form-field-outline {
+    display: none !important;
+}
+
+/* El resto de tus estilos, también ajustados para ser específicos para este componente */
+.login-form-container .mat-form-field-appearance-outline .mat-form-field-flex {
+    background-color: transparent !important;
+}
+
+.login-form-container .mat-form-field-appearance-outline .mat-form-field-infix {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.login-form-container .mat-form-field-appearance-outline .mat-form-field-label {
+    color: white !important;
+}
+
+.login-form-container .mat-form-field-appearance-outline .mat-form-field-ripple {
+    background-color: white !important;
+}
+
+/* Puedes dejar los siguientes como están, ya que son específicos de este archivo de componentes */
+mat-form-field {
+    width: 100%;
+}
+
+mat-error {
+    color: #d88b20 !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+    background: transparent !important;
+}
+
+
+
+login {
+    .logo-margin {
+        margin-right: 500px;
+    }
+
+    #login {
+        width: 100%;
+        background: url('~assets/images/backgrounds/dark-material-bg.jpg');
+        background-size: cover;
+        background-size: calc(100% + 3cm) 100%;
+        background-position: -3cm 0;
+
+        .toolbar-container {
+            background: #2f376d;
+        }
+
+        #login-form-wrapper {
+            flex: 1 0 auto;
+            padding: 32px;
+
+            @include media-breakpoint('xs') {
+                padding: 16px;
+            }
+
+            .logo-container {
+                width: 384px;
+                max-width: 384px;
+                background: transparent;
+
+                .logo {
+                    width: 220px;
+                    margin: 12px auto;
+                }
+            }
+
+            #login-form {
+                border-radius: 25px;
+
+                .mat-form-field-infix {
+                    border-radius: 8px;
+
+                }
+
+                color: #ffffff;
+                width: 384px;
+                max-width: 384px;
+                padding: 12px 32px 32px 32px;
+                text-align: center;
+                background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+                backdrop-filter: blur(2px);
+                @include mat-elevation(16);
+
+                @include media-breakpoint('xs') {
+                    padding: 24px;
+                    width: 100%;
+                }
+
+                .title {
+                    font-size: 20px;
+                    margin: 12px 0 32px 0;
+                    color: #ffffff;
+                }
+
+                form {
+                    width: 100%;
+                    text-align: left;
+
+
+                    .load-spinner {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .submit-button {
+                        width: 220px;
+                        margin: 16px auto;
+                        display: block;
+
+                        @include media-breakpoint('xs') {
+                            width: 90%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

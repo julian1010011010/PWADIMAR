@@ -1,0 +1,8 @@
+{
+	"/api/*":{
+		"target":"https://https://appn.dimar.mil.co/Simam",
+		"secure":true,
+		"logLevel":"debug"
+	}
+}
+		 

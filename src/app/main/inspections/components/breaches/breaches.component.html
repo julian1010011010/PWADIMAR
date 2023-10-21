@@ -1,0 +1,69 @@
+<div class="content py-16">
+    <div class="subtitle" *ngIf="showSubtitle">Incumplimientos</div>    
+    <div fxLayout="row" fxLayout="start space-between" *ngIf="!finalState">
+        <!--<mat-form-field appearance="outline" style="width: 300px !important; margin-right: 25px !important;">
+            <mat-label>
+                <span *ngIf="breachesOptions.length > 0">{{ 'BREACHES_MODAL.BREACHES_OPTIONS' | translate}}</span>
+                <span *ngIf="breachesOptions.length == 0">
+                    <span *ngIf="!loadingOptionsError">{{ 'SHARED.LOADING' | translate}}</span>
+                    <span *ngIf="loadingOptionsError">{{ 'SHARED.LOADING_ERROR' | translate}}</span>
+                </span>
+            </mat-label>
+            <mat-select class="simplified" [(ngModel)]="selectedOption">
+                <mat-option [value]="option.id" *ngFor="let option of breachesOptions">{{ option.description }}</mat-option>
+            </mat-select>
+        </mat-form-field>-->
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>{{ 'SHARED.DESCRIPTION' | translate}}</mat-label>
+            <input matInput [(ngModel)]="selectedOption"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="date">
+            <mat-label>{{ 'BREACHES_MODAL.CORRECTION_DATE' | translate}}</mat-label>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="correctionDate" [readonly]="!inspection.finalState">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
+        <div class="pt-20 pl-8 action-btn">
+            <button
+                mat-raised-button
+                color="accent"
+                *ngIf="!isLoading"
+                [disabled]="!selectedOption || !correctionDate"
+                (click)="add()"
+            >
+                {{ "SHARED.ADD" | translate }}
+            </button>
+            <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+        </div>
+    </div>
+    <h2 *ngIf="inspection.breaches?.length > 0">{{ 'BREACHES_MODAL.LIST' | translate}}</h2>
+    <div fxLayout="row" fxLayout="start space-between" *ngFor="let breach of inspection.breaches">
+        <!--<mat-form-field appearance="outline" style="width: 300px !important; margin-right: 25px !important;">
+            <mat-label></mat-label>
+            <mat-select class="simplified" [(ngModel)]="breach.description">
+                <mat-option [value]="option.id" *ngFor="let option of breachesOptions">{{ option.description }}</mat-option>
+            </mat-select>
+        </mat-form-field>-->
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>{{ 'SHARED.DESCRIPTION' | translate}}</mat-label>
+            <input matInput [(ngModel)]="breach.description" [readonly]="finalState"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="date">
+            <mat-label>{{ 'BREACHES_MODAL.CORRECTION_DATE' | translate}}</mat-label>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="breach.dueDate" [readonly]="finalState">
+            <mat-datepicker-toggle matSuffix [for]="picker2" *ngIf="!finalState"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+        </mat-form-field>
+        <div class="pt-16 pl-8 action-btn" *ngIf="!finalState">
+            <div  *ngIf="!breach.isSaving">
+                <button mat-icon-button color="accent" (click)="saveBreach(breach, 'U')">
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button mat-icon-button color="warn"  (click)="saveBreach(breach, 'D')">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>                    
+            <mat-spinner diameter="40" *ngIf="breach.isSaving"></mat-spinner>
+        </div>
+    </div>
+</div>

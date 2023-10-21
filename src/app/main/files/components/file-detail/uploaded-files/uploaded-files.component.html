@@ -1,0 +1,29 @@
+
+    <div class="page-layout simple fullwidth">
+        <div class="content">
+            <div fxLayout="row" fxLayoutAlign="space-between center" class="px-24">
+                <h2>{{'FILES.UPLOADED_FILES' | translate}}</h2>
+                <button mat-raised-button color="accent" class="submit-button" (click)="openDialog()">{{'FILES.ADD_DOCUMENT' | translate}}</button>
+            </div>
+            <ngx-datatable 
+            class="material"
+             [columns]="columns" 
+             [rows]="rows"
+             [sortType]="'multi'" 
+             [headerHeight]="40"
+             [rowHeight]="50" 
+             [footerHeight]="40"
+             [scrollbarH]="true"
+             [columnMode]="'force'" 
+             [limit]="5" 
+             [messages]="{emptyMessage: 'No hay información para mostrar'}">
+                <ngx-datatable-column [name]='col.name' [prop]='col.prop' *ngFor="let col of columns">
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Acciones" width="110" [frozenRight]="true">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-id="value" let-row="row">
+                        <button mat-raised-button class="cta-button" color="accent" type="button" (click)="redirection(row)">{{'FILES.SEE_DETAIL' | translate}}</button>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </div>

@@ -1,0 +1,234 @@
+<div id="consult-files" class="page-layout simple fullwidth">
+    <div class="content p-24" *ngIf="!formConsultAdvanced">
+        <div class="card-header">
+            <h1 *ngIf="!createFile">{{'FILES.TITLE' | translate}}</h1>
+            <h1 *ngIf="createFile">Crear Expediente</h1>
+        </div>
+        <div class="mat-card mat-elevation-z4 p-24">
+            <form name="basic" [formGroup]="formBasic" novalidate>
+                <div fxLayout="row" fxLayoutAlign="start center" class="pr-4">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.ENROLLMENT' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="RegistrationNumber">
+                    </mat-form-field>
+                    <mat-form-field *ngIf="!createFile" appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.SHIPNAME' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="ShipName">
+                    </mat-form-field>
+                    <div fxFlex="20" class="search-btn">
+                        <button mat-raised-button color="accent" [disabled]="formBasic.invalid"
+                        (click)="consultBasic()" *ngIf="!createFile && !isLoading" class="p-8">{{ 'FILES.CONSULT' | translate}}</button>
+                        <button mat-raised-button color="accent" [disabled]="formBasic.invalid"
+                        (click)="createFileService()" *ngIf="createFile && !isLoading" class="p-8">Crear expediente</button>
+                        <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+                    </div>       
+                </div>
+            </form>
+            <div class="pr-4" *ngIf="!createFile">
+                <a (click)="actConsult()">{{'FILES.SEARCH_AVANCED' | translate}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="content p-24" *ngIf="formConsultAdvanced">
+        <div class="card-header">
+            <h1>{{'FILES.TITLEAVANCED' | translate}}</h1>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-evenly none">
+            <form name="advanced" [formGroup]="formAdvanced" novalidate class="mat-card mat-elevation-z4 p-24"
+                fxLayout="column" fxLayoutAlign="center" fxFlex="1 0 auto">
+                <span>Consultar por: </span>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.ENROLLMENT' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="RegistrationNumber">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.SHIPNAME' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="ShipName">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.NUMBER_OMI_NIC' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="OmiNic">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>
+                            <span *ngIf="shipStatus != undefined">{{'FILES.STATUS' | translate}}</span>
+                            <span *ngIf="shipStatus == undefined">{{ 'FILES.LOADING' | translate}}</span>
+                        </mat-label>
+                        <mat-select [(value)]="selectedOperationStatusId" placeholder="Mode"
+                            formControlName="OperationStatusId" (selectionChange)="selectOperationStatus($event.value)">
+                            <mat-option [value]='null'>Seleccione...</mat-option>
+                            <mat-option *ngFor="let list of shipStatus" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>
+                            <span *ngIf="shipGroups != undefined">{{'FILES.GROUP' | translate}}</span>
+                            <span *ngIf="shipGroups == undefined">{{ 'FILES.LOADING' | translate}}</span>
+                        </mat-label>
+                        <mat-select [(value)]="selectedGroupId" placeholder="Mode" formControlName="GroupId"
+                            (selectionChange)="selectGroup($event.value)">
+                            <mat-option [value]='null'>Seleccione...</mat-option>
+                            <mat-option *ngFor="let list of shipGroups" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label> {{'FILES.GROSS_TONNAGE_UP' | translate}}</mat-label>
+                        <input matInput type="number" step="any" formControlName="MaxGrossTonnage" (change)="validGrossMax($event.target.value)" [required]="requireGrossdMax">
+                        <mat-hint class="color-required" *ngIf="requireGrossdMax">
+                            {{'FILES.ERROR_GROSS_TONNAGE_UP' | translate}}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>
+                            <span>{{'FILES.SUBGROUP' | translate}}</span>
+                        </mat-label>
+                        <mat-select [(value)]="selectedSubgroupId" placeholder="Mode" formControlName="SubgroupId"
+                            (selectionChange)="selectSubgroup($event.value)">
+                            <mat-option [value]='null'>Seleccione...</mat-option>
+                            <mat-option *ngFor="let list of shipSubgroups" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label> {{'FILES.NET_TONNAGE_FROM' | translate}}</mat-label>
+                        <input matInput type="number" step="any" formControlName="MinNetTonnage" (change)="validFieldMin($event.target.value)" [required]="requireFieldMin">
+                        <mat-hint class="color-required" *ngIf="requireFieldMin">
+                            {{'FILES.ERROR_NET_TONNAGE_FROM' | translate}}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label> {{'FILES.GROSS_TONNAGE_FROM' | translate}}</mat-label>
+                        <input matInput type="number" step="any" formControlName="MinGrossTonnage" (change)="validGrossdMin($event.target.value)" [required]="requireGrossdMin">
+                        <mat-hint class="color-required" *ngIf="requireGrossdMin">
+                            {{'FILES.ERROR_GROSS_TONNAGE_FROM' | translate}}
+                        </mat-hint>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label> {{'FILES.NET_TONNAGE_UP' | translate}}</mat-label>
+                        <input matInput name="test" type="number" step="any" formControlName="MaxNetTonnage" (change)="validFieldMax($event.target.value)" [required]="requireFieldMax">
+                        <mat-hint class="color-required" *ngIf="requireFieldMax">
+                            {{'FILES.ERROR_NET_TONNAGE_UP' | translate}}
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>
+                            <span *ngIf="navegationType != undefined">{{'FILES.NAVIGATION_TYPE' | translate}}</span>
+                            <span *ngIf="navegationType == undefined">{{ 'FILES.LOADING' | translate}}</span>
+                        </mat-label>
+                        <mat-select [(value)]="selectedNavegationTypeId" placeholder="Mode"
+                            formControlName="NavegationTypeId" (selectionChange)="selectNavegationType($event.value)">
+                            <mat-option [value]='null'>Seleccione...</mat-option>
+                            <mat-option *ngFor="let list of navegationType" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.CONSTRUCTION_DATE_FROM' | translate}}</mat-label>
+                        <input matInput type="date" formControlName="MinBuiltDate" [max]="dateMax">
+                        <mat-error *ngIf="formAdvanced.controls['MinBuiltDate'].hasError('dateToCompareMaxNow')">
+                            {{'FILES.ERROR_CONSTRUCTION_DATE_FROM' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>
+                            <span *ngIf="trafficType != undefined">{{'FILES.TYPE_OF_TRAFFIC' | translate}}</span>
+                            <span *ngIf="trafficType == undefined">{{ 'FILES.LOADING' | translate}}</span>
+                        </mat-label>
+                        <mat-select [(value)]="selectedTrafficTypeId" placeholder="Mode" formControlName="TrafficTypeId"
+                            (selectionChange)="selectTrafficType($event.value)">
+                            <mat-option [value]='null'>Seleccione...</mat-option>
+                            <mat-option *ngFor="let list of trafficType" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.CONSTRUCTION_DATE_TO' | translate}}</mat-label>
+                        <input matInput type="date" formControlName="MaxBuiltDate" [max]="dateMax">
+                        <mat-error *ngIf="formAdvanced.controls['MaxBuiltDate'].hasError('dateToCompareMaxNow')">
+                            {{'FILES.ERROR_CONSTRUCTION_DATE_TO' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>
+                            <span *ngIf="registryPorts != undefined">{{'FILES.PORT_REGISTRATION' | translate}}</span>
+                            <span *ngIf="registryPorts == undefined">{{ 'FILES.LOADING' | translate}}</span>
+                        </mat-label>
+                        <mat-select [(value)]="selectedRegistrationPortId" placeholder="Mode"
+                            formControlName="RegistrationPortId"
+                            (selectionChange)="selectRegistrationPort($event.value)">
+                            <mat-option [value]='null'>Seleccione...</mat-option>
+                            <mat-option *ngFor="let list of registryPorts" [value]="list.id">
+                                {{list.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>{{'FILES.OWNER' | translate}}</mat-label>
+                        <input matInput type="input" formControlName="Owner">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row wrap" fxLayoutAlign="end center" fxFlex="1 0 auto">
+                    <mat-form fxFlex="50" fxLayoutAlign="end" class="pr-4" *ngIf="!isLoading">
+                        <button mat-raised-button color="accent" class="submit-button" [disabled]="formAdvanced.invalid"
+                            (click)="consultAdvanced()"> {{ 'FILES.CONSULT' | translate}} </button>
+                    </mat-form>
+                    <mat-form fxFlex="50" class="ml-8" fxLayoutAlign="start" class="pr-4" *ngIf="!isLoading">
+                        <a (click)="actConsult()">{{'FILES.SEARCH_BASIC' | translate}}</a>
+                    </mat-form>
+                    <mat-form fxFlex="100" class="ml-8" fxLayoutAlign="center center" class="pr-4">
+                        <mat-spinner diameter="40" *ngIf="isLoading"></mat-spinner>
+                    </mat-form>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="ngx-datatable" class="page-layout simple fullwidth" *ngIf="showResult">
+        <div class="content p-24">
+            <div class="card-header">
+                <h1>{{'FILES.QUERY_RESULT' | translate}}</h1>
+            </div>
+            <ngx-datatable class="material" [columns]="columns" [rows]="rows" [sortType]="'multi'" [headerHeight]="40"
+                [rowHeight]="50" [footerHeight]="40" [scrollbarH]="true" [scrollbarH]="true" [columnMode]="'force'" [limit]="10" [messages]="{emptyMessage: 'No hay información para mostrar'}">
+                <ngx-datatable-column [name]='col.name' [prop]='col.prop' *ngFor="let col of columns">
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Fecha de registro" prop="builtDate">
+                    <ng-template let-value="value" ngx-datatable-cell-template>
+                        {{value | date:'d/M/yyyy'}}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Acciones" width="150" [frozenRight]="true">
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-id="value" let-row="row">
+                        <button mat-raised-button class="cta-button" color="accent" type="button" *ngIf="row.fileId != 0"
+                            routerLink="/expedientes/detalle/{{row.registrationNumber}}">{{'FILES.SEE_DETAIL' | translate}}</button>
+                        <button mat-raised-button class="cta-button" color="accent" type="button" *ngIf="row.fileId == 0 && showButton"
+                            routerLink="/expedientes/crear">{{'FILES.CREATE_FILE' | translate}}</button>
+                        <span *ngIf="row.fileId == 0 && !showButton"><strong>No tiene expediente</strong></span>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+
+    </div>
+</div>
